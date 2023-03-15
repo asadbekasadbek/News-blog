@@ -16,9 +16,8 @@ class ModeratorSeeder extends Seeder
     {
         $user = User::create([
             'name' => 'moderator',
-            'email' => 'Moderator@moderator.com',
+            'email' => 'moderator@moderator.com',
             'email_verified_at' => now()->subDays(5),
-            'phone' => '+123456789123',
             'password' => Hash::make('moderator1234'),
         ]);
 
