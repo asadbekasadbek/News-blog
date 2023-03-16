@@ -1,15 +1,15 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('News blag') }}
+            {{ __('Tags') }}
         </h2>
     </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <a href="{{route('category.create')}}"
+            <a href="{{route('tag.create')}}"
                class="inline-block m-3 px-6 py-2.5 bg-blue-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-lg transition duration-150 ease-in-out">
-                Create New
+                Create Tag
             </a>
 
 
@@ -39,7 +39,7 @@
 
                             </thead>
                             <tbody class="bg-white divide-y divide-gray-200">
-                            @foreach($categories as $value )
+                            @foreach($tags as $value )
                                 <tr>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm font-medium text-gray-900">
@@ -50,13 +50,13 @@
 
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm font-medium text-gray-900">
-                                            <a href="{{route('category.edit',$value->id)}}"  class="text-yellow-600 hover:text-yellow-700 cursor-pointer"
+                                            <a href="{{route('tag.edit',$value->id)}}"  class="text-yellow-600 hover:text-yellow-700 cursor-pointer"
                                             >  Редактировать</a>
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="text-sm font-medium text-gray-900">
-                                            <form action="{{route('category.destroy',$value->id)}}" method="post">
+                                            <form action="{{route('tag.destroy',$value->id)}}" method="post">
                                                 @method('DELETE')
                                                 @csrf
                                             <button type="submit" class="text-red-600 hover:text-red-900 cursor-pointer"

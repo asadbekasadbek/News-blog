@@ -11,14 +11,19 @@
                 <div class="container mx-auto p-4 bg-white">
                     <div class="w-full md:w-1/2 lg:w-1/3 mx-auto my-12 text-center text-blue-600">
                         <h1 class="text-lg font-bold"> Create News blag </h1>
-                        <form  class="flex flex-col mt-4">
+                        <form action="{{route('news-blog.store')}}"  method="post" class="flex flex-col mt-4" enctype="multipart/form-data">
+                            @csrf
                             <label for="lastname" class="text-sm">Category</label>
-                            <select     id="category_product" class="px-4 m-1 py-3 w-full rounded-md bg-blue-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-0 text-sm">
-                                <option >1</option>
+                            <select    name="category_id"  class="px-4 m-1 py-3 w-full rounded-md bg-blue-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-0 text-sm">
+                             @foreach($categories as $value)
+                                <option value="{{$value->id}}" >{{$value->name}}</option>
+                                @endforeach
                             </select>
-                            <label for="lastname" class="text-sm">Tag</label>
-                            <select   multiple id="category_product" class="px-4 m-1 py-3 w-full rounded-md bg-blue-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-0 text-sm">
-                                <option></option>
+                            <label for="lastname" class="text-sm">Tags</label>
+                            <select   multiple name="tags[]" class="px-4 m-1 py-3 w-full rounded-md bg-blue-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-0 text-sm">
+                                @foreach($tags as $value)
+                                    <option value="{{$value->id}}" >{{$value->name}}</option>
+                                @endforeach
                             </select>
                             <label for="lastname" class="text-sm">title</label>
                             <input
@@ -36,12 +41,7 @@
                                 placeholder="image"
                             />
                             <label for="lastname" class="text-sm">description</label>
-                            <textarea name="description"
-
-                                      class="px-4 m-1 py-3 w-full rounded-md bg-blue-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-0 text-sm"
-                                      placeholder="description">
-
-                                </textarea>
+                            <textarea name="description" class="px-4 m-1 py-3 w-full rounded-md bg-blue-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-0 text-sm" placeholder="description"></textarea>
 
                             <button
                                 type="submit"

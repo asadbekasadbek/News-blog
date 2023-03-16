@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\NewsBlogController;
+use App\Http\Controllers\TagController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -28,8 +29,15 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 
+    Route::resource('category', CategoryController::class)->except([
+        'show',
+    ]);
+
+    Route::resource('tag', TagController::class)->except([
+        'show',
+    ]);
+
     Route::resources([
         'news-blog' => NewsBlogController::class,
-        'category' => CategoryController::class,
     ]);
 });

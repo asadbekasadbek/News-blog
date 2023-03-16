@@ -59,7 +59,7 @@
 
                                 <td class="px-6 py-4 whitespace-nowrap" style="width: 300px">
                                     <div class="text-sm font-medium text-gray-900">
-                                        <img style="width: 300px;height: 200px" src="{{$value->image}}">
+                                        <img style="width: 300px;height: 200px" src="storage/{{$value->image}}">
                                     </div>
                                 </td>
                                 <td   >
@@ -76,14 +76,18 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm font-medium text-gray-900">
-                                        <a  class="text-yellow-600 hover:text-yellow-700 cursor-pointer"
+                                        <a href="{{route('news-blog.edit',$value->id)}}" class="text-yellow-600 hover:text-yellow-700 cursor-pointer"
                                         >  Редактировать</a>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm font-medium text-gray-900">
-                                        <a  class="text-red-600 hover:text-red-900 cursor-pointer"
-                                        >Удалить</a>
+                                        <form action="{{route('news-blog.destroy',$value->id)}}" method="post">
+                                            @method('DELETE')
+                                            @csrf
+                                        <button type="submit"  class="text-red-600 hover:text-red-900 cursor-pointer"
+                                        >Удалить</button>
+                                        </form>
                                     </div>
                                 </td>
 

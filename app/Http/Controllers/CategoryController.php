@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 
 class CategoryController extends Controller
 {
@@ -11,7 +13,11 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return
+
+        $categories = Category::all();
+        return view('Category.index',[
+            'categories'=>$categories
+        ]);
     }
 
     /**
@@ -19,7 +25,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('Category.create');
     }
 
     /**
@@ -27,7 +33,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Category::create([
+            'name'=> $request->name,
+        ]);
+
+        return \redirect()->route('category.index');
     }
 
     /**
@@ -43,15 +53,22 @@ class CategoryController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $category = Category::findOr($id, fn () => abort(403));
+
+        return view('Category.edit',[
+            'category'=>$category
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, int $id)
     {
-        //
+        $category = Category::findOr($id, fn () => abort(404));
+        $category->name =$request->name;
+        $category->save();
+        return \redirect()->route('category.index');
     }
 
     /**
@@ -59,6 +76,7 @@ class CategoryController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        Category::destroy($id);
+        return \redirect()->route('category.index');
     }
 }

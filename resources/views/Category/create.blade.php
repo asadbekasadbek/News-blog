@@ -11,7 +11,8 @@
                 <div class="container mx-auto p-4 bg-white">
                     <div class="w-full md:w-1/2 lg:w-1/3 mx-auto my-12 text-center text-blue-600">
                         <h1 class="text-lg font-bold"> Create Category </h1>
-                        <form  class="flex flex-col mt-4">
+                        <form  action="{{route('category.store')}}" method="post" m class="flex flex-col mt-4">
+                            @csrf
                             <label for="lastname" class="text-sm">Name</label>
                             <input
                                 type="text"
