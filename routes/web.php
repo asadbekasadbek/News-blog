@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\NewsBlogController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,4 +27,9 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return view('dashboard');
     })->name('dashboard');
+
+    Route::resources([
+        'news-blog' => NewsBlogController::class,
+        'category' => CategoryController::class,
+    ]);
 });
