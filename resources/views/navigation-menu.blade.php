@@ -15,15 +15,19 @@
                     <x-nav-link href="{{ route('dashboard') }}" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+                    @can('moderator')
                     <x-nav-link href="{{ route('news-blog.index') }}" :active="request()->routeIs('news-blog.index')">
                         {{ __('News Blog') }}
                     </x-nav-link>
+                    @endcan
+                    @can('admin')
                     <x-nav-link href="{{ route('category.index') }}" :active="request()->routeIs('category.index')">
                         {{ __('Category') }}
                     </x-nav-link>
                     <x-nav-link href="{{ route('tag.index') }}" :active="request()->routeIs('tag.index')">
                         {{ __('Tag') }}
                     </x-nav-link>
+                    @endcan
                 </div>
             </div>
 

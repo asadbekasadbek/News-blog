@@ -7,10 +7,12 @@
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+            @can('admin')
             <a href="{{route('news-blog.create')}}"
                class="inline-block m-3 px-6 py-2.5 bg-blue-500 text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-blue-600 hover:shadow-lg focus:bg-green-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-blue-700 active:shadow-lg transition duration-150 ease-in-out">
                 Create New
             </a>
+            @endcan
 
 
             <div class="flex flex-col">
@@ -40,11 +42,12 @@
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Редактировать
                                 </th>
+                                @can('admin')
                                 <th scope="col"
                                     class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                                     Удалить
                                 </th>
-
+                                @endcan
                             </tr>
 
                             </thead>
@@ -70,7 +73,7 @@
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm font-medium text-gray-900">
-                                        <a  class="text-green-600 hover:text-green-700 cursor-pointer"
+                                        <a href="{{route('news-blog.show',$value->id)}}" class="text-green-600 hover:text-green-700 cursor-pointer"
                                         > Смотреть комменты</a>
                                     </div>
                                 </td>
@@ -80,7 +83,9 @@
                                         >  Редактировать</a>
                                     </div>
                                 </td>
+                                @can('admin')
                                 <td class="px-6 py-4 whitespace-nowrap">
+
                                     <div class="text-sm font-medium text-gray-900">
                                         <form action="{{route('news-blog.destroy',$value->id)}}" method="post">
                                             @method('DELETE')
@@ -90,6 +95,7 @@
                                         </form>
                                     </div>
                                 </td>
+                                @endcan
 
                             </tr>
                             @endforeach

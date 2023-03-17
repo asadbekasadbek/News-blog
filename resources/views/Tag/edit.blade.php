@@ -23,7 +23,15 @@
                                 placeholder="Name"
                             />
 
-
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul >
+                                        @foreach ($errors->all() as $error)
+                                            <li class="text-orange-700">{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             <button
                                 type="submit"
                                 class="mt-4 px-4 py-3  leading-6 text-base rounded-md border border-transparent  bg-blue-500 text-blue-100 hover:text-white focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 cursor-pointer inline-flex  w-full justify-center  font-medium focus:outline-none"
@@ -32,6 +40,7 @@
                             </button>
 
                         </form>
+
                     </div>
                 </div>
             </div>

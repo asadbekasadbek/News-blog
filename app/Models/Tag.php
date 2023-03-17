@@ -10,4 +10,8 @@ class Tag extends Model
     use HasFactory;
 
     protected $fillable = ['name'];
+
+    public function newsBlogTags(){
+        return $this-> belongsToMany(NewsBlog::class,'news_blog_tags');
+    }
 }

@@ -47,7 +47,15 @@
                             <label for="lastname" class="text-sm">description</label>
                             <textarea name="description" class="px-4 m-1 py-3 w-full rounded-md bg-blue-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-0 text-sm"
                                       placeholder="description">{{$new->description}}</textarea>
-
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul >
+                                        @foreach ($errors->all() as $error)
+                                            <li class="text-orange-700">{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
                             <button
                                 type="submit"
                                 class="mt-4 px-4 py-3  leading-6 text-base rounded-md border border-transparent  bg-blue-500 text-blue-100 hover:text-white focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 cursor-pointer inline-flex  w-full justify-center  font-medium focus:outline-none"

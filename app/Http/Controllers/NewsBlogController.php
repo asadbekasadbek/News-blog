@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\NewsBlogRequest;
 use App\Models\Category;
 use App\Models\NewsBlog;
 use App\Models\NewsBlogTag;
 use App\Models\Tag;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
 
 class NewsBlogController extends Controller
@@ -16,6 +17,7 @@ class NewsBlogController extends Controller
      */
     public function index()
     {
+        Gate::authorize('moderator');
         $new_blogs = NewsBlog::all();
         return view('News-blog.index', [
             'new_blogs' => $new_blogs,
@@ -26,7 +28,7 @@ class NewsBlogController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
+    {  Gate::authorize('admin');
         $categories = Category::all(['id', 'name']);
         $tags = Tag::all(['id', 'name']);
         return view('News-blog.create', [
@@ -38,9 +40,9 @@ class NewsBlogController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(NewsBlogRequest $request): \Illuminate\Http\RedirectResponse
     {
-
+        Gate::authorize('admin');
         $new = NewsBlog::create([
             'category_id' => $request->category_id,
             'title' => $request->title,
@@ -61,16 +63,22 @@ class NewsBlogController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $id): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
-
+        Gate::authorize('moderator');
+       $new = NewsBlog::with('comments')->where('id',$id)->first();
+//       return  $new;
+       return view('News-blog.show',[
+           'new'=>$new,
+       ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id): \Illuminate\Contracts\View\View|\Illuminate\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\Foundation\Application
     {
+        Gate::authorize('moderator');
         $new = NewsBlog::findOr($id, fn() => abort(404));
         $categories = Category::all(['id', 'name']);
         $tags = Tag::all(['id', 'name']);
@@ -84,8 +92,9 @@ class NewsBlogController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(NewsBlogRequest $request, int $id): \Illuminate\Http\RedirectResponse
     {
+        Gate::authorize('moderator');
         $new = NewsBlog::findOr($id, fn() => abort(404));
         $new->category_id = $request->category_id;
         $new->title = $request->title;
@@ -111,8 +120,9 @@ class NewsBlogController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): \Illuminate\Http\RedirectResponse
     {
+        Gate::authorize('admin');
         $path = NewsBlog::findOr($id, fn() => abort(404));
         $path = $path->image;
         Storage::disk('public')->delete($path);

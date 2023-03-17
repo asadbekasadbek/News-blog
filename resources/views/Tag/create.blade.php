@@ -20,7 +20,15 @@
                                 class="px-4 m-1 py-3 w-full rounded-md bg-blue-100 border-transparent focus:border-blue-500 focus:bg-white focus:ring-0 text-sm"
                                 placeholder="Name"
                             />
-
+                            @if ($errors->any())
+                                <div class="alert alert-danger">
+                                    <ul >
+                                        @foreach ($errors->all() as $error)
+                                            <li class="text-orange-700">{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
 
                             <button
                                 type="submit"
@@ -30,6 +38,7 @@
                             </button>
 
                         </form>
+
                     </div>
                 </div>
             </div>
